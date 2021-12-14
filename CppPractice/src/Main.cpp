@@ -5,26 +5,74 @@
 #define print(x) std::cout << x << std::endl
 
 
-void PrintLoop()
+class Entity
 {
-	while (true)
-	{
-		print("Chicken");
-	}
-}
+	public:
+		Entity()
+		{
+			m_x = 0.0f;
+			m_y = 0.0f;
+		}
+
+		Entity(float m_x, float m_y)
+		{
+			Entity::m_x = m_x;
+			Entity::m_y = m_y;
+		}
+
+		~Entity()
+		{
+			print("destroyed entity");
+		}
+
+		float getX()
+		{
+			return m_x;
+		}
+
+		float getY()
+		{
+			return m_y;
+		}
+	private:
+		float m_x;
+		float m_y;
+
+};
+
+class Player : public Entity
+{
+	public:
+		Player(const char* name)
+		{
+			m_name = name;
+		}
+
+		const char* getName()
+		{
+			return m_name;
+		}
+	private:
+		const char* m_name;
+};
 
 int main()
 {	
+	Entity e = Entity(10, 20);
+	print(e.getX());
+	int* b = (int*)100000;
 
-	std::thread worker1(PrintLoop);
-	std::thread worker2(PrintLoop);
-	std::thread worker3(PrintLoop);
-	std::thread worker4(PrintLoop);
 
-	worker1.join();
-	worker2.join();
-	worker3.join();
-	worker4.join();
+	Player pranay = Player("Pranay Stack");
+	Player* pranayh = new Player("Pranay Heap");
 
-	std::cin.get();
+
+	print(sizeof(int));
+
+	print(pranay.getName());
+	print(pranayh->getName());
+	delete pranayh;
+	
+	
+
 }
